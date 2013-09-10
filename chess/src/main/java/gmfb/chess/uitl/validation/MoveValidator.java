@@ -46,16 +46,36 @@ public class MoveValidator implements Validator<Move>
 
    private void validatePositionsOfMove(Move move) throws InvalidMoveException
    {
-      validateChangingPositions(move);
-   }
-
-   private void validateChangingPositions(Move move) throws InvalidMoveException
-   {
       if (move.getPiece()
             .getCurrentPostion()
             .equals(move.getTo()))
       {
          throw new InvalidMoveException();
       }
+   }
+
+   public void setCastleMoveValidator(CastleMoveValidator castleMoveValidator)
+   {
+      this.castleMoveValidator = castleMoveValidator;
+   }
+
+   public void setEnPassentMoveValidator(EnPassentMoveValidator enPassentMoveValidator)
+   {
+      this.enPassentMoveValidator = enPassentMoveValidator;
+   }
+
+   public void setPawnPromotionMoveValidator(PawnPromotionMoveValidator pawnPromotionMoveValidator)
+   {
+      this.pawnPromotionMoveValidator = pawnPromotionMoveValidator;
+   }
+
+   public void setKillingMoveValidator(KillingMoveValidator killingMoveValidator)
+   {
+      this.killingMoveValidator = killingMoveValidator;
+   }
+
+   public void setPositionValidator(PositionValidator positionValidator)
+   {
+      this.positionValidator = positionValidator;
    }
 }
