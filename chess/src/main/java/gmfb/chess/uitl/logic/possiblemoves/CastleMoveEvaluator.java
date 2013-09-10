@@ -16,7 +16,6 @@ public class CastleMoveEvaluator
    private ChessPiece rookPiece;
    private ChessBoard chessBoard;
    private CastleMovePosibilitiesValue castleMoves;
-   private EnemyColorRetriever enemyColorRetriever = new EnemyColorRetriever();
 
    public boolean evaluateMovePosibility(CastleMove castleMove)
    {
@@ -62,7 +61,7 @@ public class CastleMoveEvaluator
       Set<Position> kingMovePositions = castleMoves.getKingMovePositions();
       for (Position position : kingMovePositions)
       {
-         if (chessBoard.getMovablePositions(enemyColorRetriever.getEnemyColor(kingPiece.getColor()))
+         if (chessBoard.getMovablePositions(EnemyColorRetriever.getEnemyColor(kingPiece.getColor()))
                .contains(position))
          {
             return false;

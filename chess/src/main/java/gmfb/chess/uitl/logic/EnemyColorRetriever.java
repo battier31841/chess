@@ -4,7 +4,7 @@ import gmfb.chess.core.piece.ChessPieceColor;
 
 public class EnemyColorRetriever
 {
-   public ChessPieceColor getEnemyColor(ChessPieceColor color)
+   public static ChessPieceColor getEnemyColor(ChessPieceColor color)
    {
       if (color.equals(ChessPieceColor.WHITE))
       {
