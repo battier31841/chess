@@ -3,7 +3,7 @@ package gmfb.chess.core;
 public final class Position
 {
    public static final int POSITION_MIN = 0;
-   public static final int POSITION_MAX = 0;
+   public static final int POSITION_MAX = 7;
 
    private int xPosition;
    private int yPosition;
