@@ -2,6 +2,8 @@ package gmfb.chess.core.board;
 
 import static org.easymock.EasyMock.createControl;
 import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.isA;
 import static org.fest.assertions.Assertions.assertThat;
 import gmfb.chess.core.Position;
 import gmfb.chess.core.move.Move;
@@ -9,6 +11,7 @@ import gmfb.chess.core.piece.ChessPiece;
 import gmfb.chess.core.piece.ChessPieceColor;
 import gmfb.chess.core.piece.ChessPieceKey;
 import gmfb.chess.core.piece.pieces.PawnPiece;
+import gmfb.chess.core.piece.pieces.RookPiece;
 import gmfb.chess.core.printer.BoardPrinterImpl;
 import gmfb.chess.uitl.exception.IllegalMoveException;
 import gmfb.chess.uitl.exception.InvalidCastleMoveException;
@@ -19,14 +22,13 @@ import gmfb.chess.uitl.exception.InvalidPawnPromotionMoveException;
 import gmfb.chess.uitl.exception.PositionOutOfBoundsException;
 import gmfb.chess.uitl.logic.check.BoardEvaluator;
 import gmfb.chess.uitl.logic.check.BoardEvaluatorImpl;
-import gmfb.chess.uitl.logic.handlemoves.MoveHandlerImpl;
+import gmfb.chess.uitl.logic.handlemoves.MoveHandler;
 import gmfb.chess.uitl.validation.ValidMoveValidator;
 
 import java.util.Map;
 
 import org.easymock.IMocksControl;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ChessBoardImplTest
@@ -36,15 +38,17 @@ public class ChessBoardImplTest
    private static final ChessPiece CHESS_PIECE = new PawnPiece(POSITION, ChessPieceColor.WHITE);
    private static final Move MOVE = new Move(CHESS_PIECE, NEW_POSITION);
 
-   private ChessBoardImpl chessBoard = new ChessBoardImpl();
-   private IMocksControl mocksControl = createControl();
-   private BoardEvaluator boardEvaluator = mocksControl.createMock(BoardEvaluatorImpl.class);
+   private final ChessBoardImpl chessBoard = new ChessBoardImpl();
+   private final IMocksControl mocksControl = createControl();
+   private final BoardEvaluator boardEvaluator = mocksControl.createMock(BoardEvaluatorImpl.class);
+   private final ValidMoveValidator validMoveValidator = mocksControl.createMock(ValidMoveValidator.class);
+   private final MoveHandler moveHandler = mocksControl.createMock(MoveHandler.class);
 
    @Before
    public void setUp()
    {
-      chessBoard.setMoveHandler(new MoveHandlerImpl());
-      chessBoard.setValidMoveValidator(new ValidMoveValidator());
+      chessBoard.setMoveHandler(moveHandler);
+      chessBoard.setValidMoveValidator(validMoveValidator);
       chessBoard.setBoardEvaluator(boardEvaluator);
       chessBoard.buildNewGame();
    }
@@ -120,36 +124,60 @@ public class ChessBoardImplTest
    }
 
    @Test
-   @Ignore
-   // must have moving ability
-         public
-         void shouldUpdateHasMoved() throws PositionOutOfBoundsException, IllegalMoveException, InvalidMoveException, InvalidKillingMoveException,
-               InvalidPawnPromotionMoveException, InvalidEnPassentMoveException, InvalidCastleMoveException
+   public void shouldGetLastMove() throws PositionOutOfBoundsException, IllegalMoveException, InvalidMoveException, InvalidKillingMoveException,
+         InvalidPawnPromotionMoveException, InvalidEnPassentMoveException, InvalidCastleMoveException
    {
-      ChessBoardImpl chessBoard = new ChessBoardImpl();
-      chessBoard.buildNewGame();
-      chessBoard.setMoveHandler(new MoveHandlerImpl());
-      ChessPieceKey key = ChessPieceKey.WHITE_KING_BISHOP_PAWN;
-      assertThat(chessBoard.hasPieceMoved(key)).isFalse();
-      chessBoard.handleMove(new Move(chessBoard.getPiece(key), new Position(3, 2)));
-      assertThat(chessBoard.hasPieceMoved(key)).isTrue();
+      validMoveValidator.validateMoveValidity(isA(ChessBoard.class), isA(Move.class));
+      expectLastCall();
+      moveHandler.handleMove(isA(ChessBoard.class), isA(Move.class));
+      expectLastCall();
+
+      mocksControl.replay();
+      chessBoard.handleMove(new Move(CHESS_PIECE, POSITION));
+      Move lastMove = chessBoard.getlastMove();
+      mocksControl.verify();
+
+      assertThat(lastMove.getTo()).isEqualTo(POSITION);
+      assertThat(lastMove.getPiece()
+            .getColor()).isEqualTo(CHESS_PIECE.getColor());
+      assertThat(lastMove.getPiece()
+            .getCurrentPostion()).isEqualTo(CHESS_PIECE.getCurrentPostion());
    }
 
    @Test
-   @Ignore
-   // must have moving ability
-         public
-         void shoudGetlastMove() throws PositionOutOfBoundsException, IllegalMoveException, InvalidMoveException, InvalidKillingMoveException,
-               InvalidPawnPromotionMoveException, InvalidEnPassentMoveException, InvalidCastleMoveException
+   public void shouldGetMoviablePositons()
    {
-      ChessBoardImpl chessBoard = new ChessBoardImpl();
-      chessBoard.buildNewGame();
-      chessBoard.setMoveHandler(new MoveHandlerImpl());
-      ChessPieceKey key = ChessPieceKey.WHITE_KING_BISHOP_PAWN;
-      assertThat(chessBoard.hasPieceMoved(key)).isFalse();
-      Move move = new Move(chessBoard.getPiece(key), new Position(3, 2));
-      chessBoard.handleMove(move);
-      assertThat(chessBoard.getlastMove()).isEqualTo(move);
+      chessBoard.getMovablePositions(ChessPieceColor.WHITE);
+   }
 
+   @Test
+   public void shouldGetPieceByPosition()
+   {
+      Position whiteKingRookPosition = new Position(0, 0);
+      ChessPiece whiteKingRookPiece = chessBoard.getPieceByPosition(whiteKingRookPosition);
+
+      assertThat(whiteKingRookPiece.getClass()).isEqualTo(RookPiece.class);
+      assertThat(whiteKingRookPiece.getColor()).isEqualTo(ChessPieceColor.WHITE);
+      assertThat(whiteKingRookPiece.getCurrentPostion()).isEqualTo(whiteKingRookPosition);
+
+      assertThat(chessBoard.getPieceByPosition(null)).isNull();
+   }
+
+   @Test
+   public void shouldGetHasPieceMoved() throws PositionOutOfBoundsException, IllegalMoveException, InvalidMoveException, InvalidKillingMoveException,
+         InvalidPawnPromotionMoveException, InvalidEnPassentMoveException, InvalidCastleMoveException
+   {
+      ChessPieceKey key = ChessPieceKey.BLACK_KING;
+      assertThat(chessBoard.hasPieceMoved(key)).isFalse();
+
+      validMoveValidator.validateMoveValidity(isA(ChessBoard.class), isA(Move.class));
+      expectLastCall();
+      moveHandler.handleMove(isA(ChessBoard.class), isA(Move.class));
+      expectLastCall();
+
+      mocksControl.replay();
+      chessBoard.handleMove(new Move(chessBoard.getPiece(key), POSITION));
+      mocksControl.verify();
+      assertThat(chessBoard.hasPieceMoved(key)).isTrue();
    }
 }
