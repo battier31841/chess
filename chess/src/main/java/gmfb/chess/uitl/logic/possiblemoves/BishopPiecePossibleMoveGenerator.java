@@ -9,15 +9,15 @@ import java.util.Set;
 
 public class BishopPiecePossibleMoveGenerator implements PossibleMoveGenerator
 {
-	private ChessPieceColor color;
+   private ChessPieceColor color;
 
-	public BishopPiecePossibleMoveGenerator(ChessPieceColor color)
-	{
-		this.color = color;
-	}
+   public BishopPiecePossibleMoveGenerator(ChessPieceColor color)
+   {
+      this.color = color;
+   }
 
-	public Set<Move> genrateMoves(ChessBoard chessBoard)
-	{
-		return new HashSet<Move>();
-	}
+   public Set<Move> genrateMoves(ChessBoard chessBoard)
+   {
+      return new HashSet<Move>();
+   }
 }
