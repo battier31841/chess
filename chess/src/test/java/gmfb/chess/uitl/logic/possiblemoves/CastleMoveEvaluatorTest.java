@@ -25,8 +25,8 @@ import com.google.common.collect.Sets;
 
 public class CastleMoveEvaluatorTest
 {
-   private CastleMoveEvaluator castleMoveEvaluator = new CastleMoveEvaluator();
-   private ChessBoardImpl chessBoard = EasyMock.createMockBuilder(ChessBoardImpl.class)
+   private final CastleMoveEvaluator castleMoveEvaluator = new CastleMoveEvaluator();
+   private final ChessBoardImpl chessBoard = EasyMock.createMockBuilder(ChessBoardImpl.class)
          .withConstructor()
          .addMockedMethod("hasPieceMoved", ChessPieceKey.class)
          .addMockedMethod("getMovablePositions", ChessPieceColor.class)
