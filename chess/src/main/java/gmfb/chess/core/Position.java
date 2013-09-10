@@ -37,4 +37,10 @@ public final class Position
    {
       return (xPosition * 10) + yPosition;
    }
+
+   @Override
+   public String toString()
+   {
+      return "(" + xPosition + "," + yPosition + ")  :  " + hashCode();
+   }
 }
