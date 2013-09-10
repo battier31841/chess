@@ -6,18 +6,18 @@ import gmfb.chess.core.piece.ChessPieceColor;
 
 public final class RookPiece extends AbstractChessPiece
 {
-	public RookPiece(Position currentPosition, ChessPieceColor color)
-	{
-		super(currentPosition, color);
-	}
+   public RookPiece(Position currentPosition, ChessPieceColor color)
+   {
+      super(currentPosition, color);
+   }
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj instanceof RookPiece)
-		{
-			return false;
-		}
-		return super.equals(obj);
-	}
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj instanceof RookPiece)
+      {
+         return super.equals(obj);
+      }
+      return false;
+   }
 }

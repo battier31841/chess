@@ -7,19 +7,19 @@ import gmfb.chess.uitl.logic.possiblemoves.PossibleMoveGeneratorFactory;
 
 public final class QueenPiece extends AbstractChessPiece
 {
-	public QueenPiece(Position currentPosition, ChessPieceColor color)
-	{
-		super(currentPosition, color);
-		moveGenerator = PossibleMoveGeneratorFactory.getPossibleMoveGenerator(this, color);
-	}
+   public QueenPiece(Position currentPosition, ChessPieceColor color)
+   {
+      super(currentPosition, color);
+      moveGenerator = PossibleMoveGeneratorFactory.getPossibleMoveGenerator(this, color);
+   }
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj instanceof QueenPiece)
-		{
-			return false;
-		}
-		return super.equals(obj);
-	}
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj instanceof QueenPiece)
+      {
+         return super.equals(obj);
+      }
+      return false;
+   }
 }

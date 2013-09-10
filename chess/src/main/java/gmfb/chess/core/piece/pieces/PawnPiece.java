@@ -35,8 +35,8 @@ public final class PawnPiece extends AbstractChessPiece
    {
       if (obj instanceof KnightPiece)
       {
-         return false;
+         return super.equals(obj);
       }
-      return super.equals(obj);
+      return false;
    }
 }

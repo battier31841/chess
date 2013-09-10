@@ -6,18 +6,18 @@ import gmfb.chess.core.piece.ChessPieceColor;
 
 public final class KnightPiece extends AbstractChessPiece
 {
-	public KnightPiece(Position currentPosition, ChessPieceColor color)
-	{
-		super(currentPosition, color);
-	}
+   public KnightPiece(Position currentPosition, ChessPieceColor color)
+   {
+      super(currentPosition, color);
+   }
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj instanceof KnightPiece)
-		{
-			return false;
-		}
-		return super.equals(obj);
-	}
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj instanceof KnightPiece)
+      {
+         return super.equals(obj);
+      }
+      return false;
+   }
 }

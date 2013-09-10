@@ -37,9 +37,8 @@ public final class KingPiece extends AbstractChessPiece
    {
       if (obj instanceof KingPiece)
       {
-         return false;
+         return super.equals(obj);
       }
-      return super.equals(obj);
+      return false;
    }
-
 }
