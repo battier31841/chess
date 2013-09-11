@@ -146,7 +146,7 @@ public class ChessBoardImplTest
    @Test
    public void shouldGetMoviablePositons()
    {
-      chessBoard.getMovablePositions(ChessPieceColor.WHITE);
+      chessBoard.getAttackablePositions(ChessPieceColor.WHITE);
    }
 
    @Test

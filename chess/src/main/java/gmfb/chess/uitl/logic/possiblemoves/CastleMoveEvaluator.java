@@ -61,7 +61,7 @@ public class CastleMoveEvaluator
       Set<Position> kingMovePositions = castleMoves.getKingMovePositions();
       for (Position position : kingMovePositions)
       {
-         if (chessBoard.getMovablePositions(EnemyColorRetriever.getEnemyColor(kingPiece.getColor()))
+         if (chessBoard.getAttackablePositions(EnemyColorRetriever.getEnemyColor(kingPiece.getColor()))
                .contains(position))
          {
             return false;

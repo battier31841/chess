@@ -14,7 +14,7 @@ public class BoardEvaluatorImpl implements BoardEvaluator
    public boolean isInCheck(ChessBoard chessBoard, ChessPieceColor color)
    {
       Position currentKingPosition = getKingPiece(chessBoard, color).getCurrentPostion();
-      Set<Position> movablePositionsForEnemy = chessBoard.getMovablePositions(EnemyColorRetriever.getEnemyColor(color));
+      Set<Position> movablePositionsForEnemy = chessBoard.getAttackablePositions(EnemyColorRetriever.getEnemyColor(color));
       return movablePositionsForEnemy.contains(currentKingPosition);
    }
 

@@ -22,7 +22,7 @@ public class BoardEvaluatorImplTest
    private final BoardEvaluatorImpl boardEvaluator = new BoardEvaluatorImpl();
    private ChessBoardImpl chessBoard = EasyMock.createMockBuilder(ChessBoardImpl.class)
          .withConstructor()
-         .addMockedMethod("getMovablePositions", ChessPieceColor.class)
+         .addMockedMethod("getAttackablePositions", ChessPieceColor.class)
          .createMock();
 
    @Before
@@ -34,7 +34,7 @@ public class BoardEvaluatorImplTest
    @Test
    public void shouldBeInCheck()
    {
-      expect(chessBoard.getMovablePositions(ChessPieceColor.BLACK)).andReturn(Sets.newHashSet(chessBoard.getPiece(ChessPieceKey.WHITE_KING)
+      expect(chessBoard.getAttackablePositions(ChessPieceColor.BLACK)).andReturn(Sets.newHashSet(chessBoard.getPiece(ChessPieceKey.WHITE_KING)
             .getCurrentPostion()));
 
       replay(chessBoard);
@@ -45,7 +45,7 @@ public class BoardEvaluatorImplTest
    @Test
    public void shouldNotBeInCheck()
    {
-      expect(chessBoard.getMovablePositions(ChessPieceColor.BLACK)).andReturn(Collections.<Position> emptySet());
+      expect(chessBoard.getAttackablePositions(ChessPieceColor.BLACK)).andReturn(Collections.<Position> emptySet());
 
       replay(chessBoard);
       assertThat(boardEvaluator.isInCheck(chessBoard, ChessPieceColor.WHITE)).isFalse();

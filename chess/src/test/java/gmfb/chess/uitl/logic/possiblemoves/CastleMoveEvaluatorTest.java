@@ -29,7 +29,7 @@ public class CastleMoveEvaluatorTest
    private final ChessBoardImpl chessBoard = EasyMock.createMockBuilder(ChessBoardImpl.class)
          .withConstructor()
          .addMockedMethod("hasPieceMoved", ChessPieceKey.class)
-         .addMockedMethod("getMovablePositions", ChessPieceColor.class)
+         .addMockedMethod("getAttackablePositions", ChessPieceColor.class)
          .addMockedMethod("hasPieceMoved", ChessPieceKey.class)
          .addMockedMethod("getPieceByPosition", Position.class)
          .createMock();
@@ -41,7 +41,7 @@ public class CastleMoveEvaluatorTest
             .anyTimes();
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(false)
             .times(2);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -56,7 +56,7 @@ public class CastleMoveEvaluatorTest
    @Test
    public void shouldEvaluateMovePosibilityFalseWrongColor()
    {
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -71,7 +71,7 @@ public class CastleMoveEvaluatorTest
    @Test
    public void shouldEvaluateMovePosibilityFalseWrongKingPiece()
    {
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -86,7 +86,7 @@ public class CastleMoveEvaluatorTest
    @Test
    public void shouldEvaluateMovePosibilityFalseWrongRookPiece()
    {
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -102,7 +102,7 @@ public class CastleMoveEvaluatorTest
    public void shouldEvaluateMovePosibilityFalseKingHasMoved()
    {
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(true);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -119,7 +119,7 @@ public class CastleMoveEvaluatorTest
    {
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(false);
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(true);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -136,7 +136,7 @@ public class CastleMoveEvaluatorTest
    {
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(false)
             .times(2);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Sets.newHashSet(new Position(3, 0)))
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Sets.newHashSet(new Position(3, 0)))
             .anyTimes();
 
       CastleMove castleMove =
@@ -153,7 +153,7 @@ public class CastleMoveEvaluatorTest
    {
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(false)
             .times(2);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -170,7 +170,7 @@ public class CastleMoveEvaluatorTest
    {
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(false)
             .times(2);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =
@@ -188,7 +188,7 @@ public class CastleMoveEvaluatorTest
       expect(chessBoard.getPieceByPosition(isA(Position.class))).andReturn(new PawnPiece(null, null));
       expect(chessBoard.hasPieceMoved(isNull(ChessPieceKey.class))).andReturn(false)
             .times(2);
-      expect(chessBoard.getMovablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
+      expect(chessBoard.getAttackablePositions(isA(ChessPieceColor.class))).andReturn(Collections.<Position> emptySet())
             .anyTimes();
 
       CastleMove castleMove =

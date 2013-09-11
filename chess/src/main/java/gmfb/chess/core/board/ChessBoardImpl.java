@@ -109,9 +109,9 @@ public class ChessBoardImpl implements ChessBoard
       return boardEvaluator.isInCheckMate(this, color);
    }
 
-   public Set<Position> getMovablePositions(ChessPieceColor color)
+   public Set<Move> getMovesForColor(ChessPieceColor color)
    {
-      Set<Position> positions = new HashSet<Position>();
+      Set<Move> moves = new HashSet<Move>();
       for (ChessPiece chessPiece : pieces.inverse()
             .keySet())
       {
@@ -121,9 +121,20 @@ public class ChessBoardImpl implements ChessBoard
             Set<Move> possibleKillingMoves = chessPiece.getPossibleKillingMoves(this);
             for (Move move : possibleKillingMoves)
             {
-               positions.add(move.getTo());
+               moves.add(move);
             }
          }
+      }
+      return moves;
+   }
+
+   public Set<Position> getAttackablePositions(ChessPieceColor color)
+   {
+      Set<Position> positions = new HashSet<Position>();
+      Set<Move> possibleKillingMoves = getMovesForColor(color);
+      for (Move move : possibleKillingMoves)
+      {
+         positions.add(move.getTo());
       }
       return positions;
    }

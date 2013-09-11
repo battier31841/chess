@@ -30,7 +30,9 @@ public interface ChessBoard
 
    public ChessPiece getPieceByPosition(Position position);
 
-   public Set<Position> getMovablePositions(ChessPieceColor color);
+   public Set<Move> getMovesForColor(ChessPieceColor color);
+
+   public Set<Position> getAttackablePositions(ChessPieceColor color);
 
    public boolean hasPieceMoved(ChessPieceKey key);
 
