@@ -5,7 +5,7 @@ import gmfb.chess.uitl.exception.PositionOutOfBoundsException;
 
 import org.junit.Test;
 
-public class positionValidatorTest
+public class PositionValidatorTest
 {
    private final PositionValidator positionValidator = new PositionValidator();
 
