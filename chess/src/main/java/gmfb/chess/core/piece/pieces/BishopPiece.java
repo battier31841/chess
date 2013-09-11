@@ -6,6 +6,10 @@ import gmfb.chess.core.piece.ChessPieceColor;
 
 public final class BishopPiece extends AbstractChessPiece
 {
+   private BishopPiece()
+   {
+   }
+
    public BishopPiece(Position currentPosition, ChessPieceColor color)
    {
       super(currentPosition, color);
@@ -19,5 +23,11 @@ public final class BishopPiece extends AbstractChessPiece
          return super.equals(obj);
       }
       return false;
+   }
+
+   @Override
+   protected AbstractChessPiece instantiatePiece()
+   {
+      return new BishopPiece();
    }
 }

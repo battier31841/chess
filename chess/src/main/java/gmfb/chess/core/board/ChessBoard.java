@@ -22,11 +22,13 @@ public interface ChessBoard
 {
    public ChessBoard buildNewGame();
 
+   public ChessBoard getClone();
+
    public BiMap<ChessPieceKey, ChessPiece> getPieces();
 
-   public ChessPieceKey getKey(ChessPiece piece);
+   public ChessPieceKey getKey(ChessPiece piece); //
 
-   public ChessPiece getPiece(ChessPieceKey key);
+   public ChessPiece getPiece(ChessPieceKey key); //
 
    public ChessPiece getPieceByPosition(Position position);
 
@@ -34,12 +36,12 @@ public interface ChessBoard
 
    public Set<Position> getAttackablePositions(ChessPieceColor color);
 
-   public boolean hasPieceMoved(ChessPieceKey key);
+   public boolean hasPieceMoved(ChessPieceKey key); //
 
    public void handleMove(Move move) throws PositionOutOfBoundsException, IllegalMoveException, InvalidMoveException, InvalidKillingMoveException,
          InvalidPawnPromotionMoveException, InvalidEnPassentMoveException, InvalidCastleMoveException;
 
-   public Move getlastMove();
+   public Move getlastMove();//
 
    public void printCurrentBoard(BoardPrinter boardPrinter);
 

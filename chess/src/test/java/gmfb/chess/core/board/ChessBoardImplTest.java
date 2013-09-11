@@ -144,9 +144,15 @@ public class ChessBoardImplTest
    }
 
    @Test
-   public void shouldGetMoviablePositons()
+   public void shouldGetAttackablePositons()
    {
       chessBoard.getAttackablePositions(ChessPieceColor.WHITE);
+   }
+
+   @Test
+   public void shouldGetMovesForColor()
+   {
+      chessBoard.getMovesForColor(ChessPieceColor.WHITE);
    }
 
    @Test
@@ -180,5 +186,21 @@ public class ChessBoardImplTest
       chessBoard.handleMove(new Move(chessBoard.getPiece(key), POSITION));
       mocksControl.verify();
       assertThat(chessBoard.hasPieceMoved(key)).isTrue();
+   }
+
+   @Test
+   public void shouldGetClone()
+   {
+      ChessBoard chessBoard = new ChessBoardImpl();
+      chessBoard.buildNewGame();
+      assertThat(chessBoard.getPieces()
+            .size()).isEqualTo(32);
+      ChessBoard clonedChessBoard = chessBoard.getClone();
+      chessBoard = null;
+      assertThat(chessBoard).isNull();
+      assertThat(clonedChessBoard).isNotNull();
+      assertThat(clonedChessBoard.getPieces()
+            .size()).isEqualTo(32);
+
    }
 }

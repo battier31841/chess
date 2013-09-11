@@ -11,6 +11,10 @@ import java.util.Set;
 
 public final class PawnPiece extends AbstractChessPiece
 {
+   private PawnPiece()
+   {
+   }
+
    public PawnPiece(Position currentPosition, ChessPieceColor color)
    {
       super(currentPosition, color);
@@ -38,5 +42,11 @@ public final class PawnPiece extends AbstractChessPiece
          return super.equals(obj);
       }
       return false;
+   }
+
+   @Override
+   protected AbstractChessPiece instantiatePiece()
+   {
+      return new PawnPiece();
    }
 }

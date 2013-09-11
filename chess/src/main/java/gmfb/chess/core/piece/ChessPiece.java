@@ -8,13 +8,15 @@ import java.util.Set;
 
 public interface ChessPiece
 {
-	public ChessPieceColor getColor();
+   public ChessPieceColor getColor();
 
-	public Position getCurrentPostion();
+   public Position getCurrentPostion();
 
-	public ChessPiece updatePosition(Position position);
+   public ChessPiece clonePiece();
 
-	public Set<Move> getPossibleMoves(ChessBoard chessBoard);
+   public ChessPiece updatePosition(Position position);
 
-	public Set<Move> getPossibleKillingMoves(ChessBoard chessBoard);
+   public Set<Move> getPossibleMoves(ChessBoard chessBoard);
+
+   public Set<Move> getPossibleKillingMoves(ChessBoard chessBoard);
 }

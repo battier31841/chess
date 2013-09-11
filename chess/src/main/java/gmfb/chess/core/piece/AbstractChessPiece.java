@@ -14,11 +14,27 @@ public abstract class AbstractChessPiece implements ChessPiece
    protected ChessPieceColor color;
    protected PossibleMoveGenerator moveGenerator;
 
+   protected AbstractChessPiece()
+   {
+   }
+
    protected AbstractChessPiece(Position currentPosition, ChessPieceColor color)
    {
       this.currentPosition = currentPosition;
       this.color = color;
       this.moveGenerator = PossibleMoveGeneratorFactory.getPossibleMoveGenerator(this, color);
+   }
+
+   abstract protected AbstractChessPiece instantiatePiece();
+
+   public ChessPiece clonePiece()
+   {
+      AbstractChessPiece newChessPiece = instantiatePiece();
+      newChessPiece.setColor(this.color);
+      newChessPiece.setCurrentPosition(new Position(this.getCurrentPostion()
+            .getxPosition(), this.getCurrentPostion()
+            .getyPosition()));
+      return newChessPiece;
    }
 
    public Position getCurrentPostion()
@@ -61,5 +77,15 @@ public abstract class AbstractChessPiece implements ChessPiece
    public void setMoveGenerator(PossibleMoveGenerator moveGenerator)
    {
       this.moveGenerator = moveGenerator;
+   }
+
+   private void setColor(ChessPieceColor color)
+   {
+      this.color = color;
+   }
+
+   private void setCurrentPosition(Position currentPosition)
+   {
+      this.currentPosition = currentPosition;
    }
 }

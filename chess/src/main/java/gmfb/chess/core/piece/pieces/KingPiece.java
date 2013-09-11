@@ -12,6 +12,10 @@ import java.util.Set;
 
 public final class KingPiece extends AbstractChessPiece
 {
+   private KingPiece()
+   {
+   }
+
    public KingPiece(Position currentPosition, ChessPieceColor color)
    {
       super(currentPosition, color);
@@ -40,5 +44,11 @@ public final class KingPiece extends AbstractChessPiece
          return super.equals(obj);
       }
       return false;
+   }
+
+   @Override
+   protected AbstractChessPiece instantiatePiece()
+   {
+      return new KingPiece();
    }
 }

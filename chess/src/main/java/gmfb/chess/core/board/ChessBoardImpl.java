@@ -51,6 +51,11 @@ public class ChessBoardImpl implements ChessBoard
       return buildNewChessGame();
    }
 
+   public ChessBoard getClone()
+   {
+      return buildClonedBoard();
+   }
+
    public ChessPiece getPiece(ChessPieceKey key)
    {
       return pieces.get(key);
@@ -112,17 +117,12 @@ public class ChessBoardImpl implements ChessBoard
    public Set<Move> getMovesForColor(ChessPieceColor color)
    {
       Set<Move> moves = new HashSet<Move>();
-      for (ChessPiece chessPiece : pieces.inverse()
-            .keySet())
+      for (ChessPiece chessPiece : getAllPiecesForColor(color))
       {
-         if (chessPiece.getColor()
-               .equals(color))
+         Set<Move> possibleMoves = chessPiece.getPossibleMoves(this);
+         for (Move move : possibleMoves)
          {
-            Set<Move> possibleKillingMoves = chessPiece.getPossibleKillingMoves(this);
-            for (Move move : possibleKillingMoves)
-            {
-               moves.add(move);
-            }
+            moves.add(move);
          }
       }
       return moves;
@@ -131,12 +131,29 @@ public class ChessBoardImpl implements ChessBoard
    public Set<Position> getAttackablePositions(ChessPieceColor color)
    {
       Set<Position> positions = new HashSet<Position>();
-      Set<Move> possibleKillingMoves = getMovesForColor(color);
-      for (Move move : possibleKillingMoves)
+      for (ChessPiece chessPiece : getAllPiecesForColor(color))
       {
-         positions.add(move.getTo());
+         for (Move move : chessPiece.getPossibleKillingMoves(this))
+         {
+            positions.add(move.getTo());
+         }
       }
       return positions;
+   }
+
+   private Set<ChessPiece> getAllPiecesForColor(ChessPieceColor color)
+   {
+      Set<ChessPiece> chessPieces = new HashSet<ChessPiece>();
+      for (ChessPiece chessPiece : pieces.inverse()
+            .keySet())
+      {
+         if (chessPiece.getColor()
+               .equals(color))
+         {
+            chessPieces.add(chessPiece);
+         }
+      }
+      return chessPieces;
    }
 
    private ChessBoardImpl buildNewChessGame()
@@ -147,6 +164,18 @@ public class ChessBoardImpl implements ChessBoard
          hasMoved.put(piece.getKey(), false);
       }
       return this;
+   }
+
+   private ChessBoard buildClonedBoard()
+   {
+      ChessBoard newChessBoard = new ChessBoardImpl();
+      for (ChessPieceKey key : pieces.keySet())
+      {
+         newChessBoard.getPieces()
+               .put(key, pieces.get(key)
+                     .clonePiece());
+      }
+      return newChessBoard;
    }
 
    private void preformMoveAndUpdateMetaData(Move move)

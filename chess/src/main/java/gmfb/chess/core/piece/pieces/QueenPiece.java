@@ -7,6 +7,10 @@ import gmfb.chess.uitl.logic.possiblemoves.PossibleMoveGeneratorFactory;
 
 public final class QueenPiece extends AbstractChessPiece
 {
+   private QueenPiece()
+   {
+   }
+
    public QueenPiece(Position currentPosition, ChessPieceColor color)
    {
       super(currentPosition, color);
@@ -21,5 +25,11 @@ public final class QueenPiece extends AbstractChessPiece
          return super.equals(obj);
       }
       return false;
+   }
+
+   @Override
+   protected AbstractChessPiece instantiatePiece()
+   {
+      return new QueenPiece();
    }
 }
