@@ -5,7 +5,7 @@ import gmfb.chess.core.piece.ChessPieceColor;
 
 public interface BoardEvaluator
 {
-	public boolean isInCheck(ChessBoard chessBoard, ChessPieceColor color);
+   public boolean isInCheck(final ChessBoard chessBoard, final ChessPieceColor color);
 
-	public boolean isInCheckMate(ChessBoard chessBoard, ChessPieceColor color);
+   public boolean isInCheckMate(final ChessBoard chessBoard, final ChessPieceColor color);
 }

@@ -50,6 +50,6 @@ public final class Position
    @Override
    public String toString()
    {
-      return "(" + xPosition + "," + yPosition + ")  :  " + hashCode();
+      return "(" + xPosition + "," + yPosition + "):" + hashCode();
    }
 }
